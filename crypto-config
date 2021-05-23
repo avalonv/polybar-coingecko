@@ -1,15 +1,15 @@
 [general]
-base_currency = NZD
+base_currency = USD
 display = price
 
 [bitcoin]
-icon = 
-
-[litecoin]
-icon = 
-
-[ardor]
-icon = 
+icon = 
 
 [ethereum]
-icon = 
+icon = 
+
+[cardano]
+icon = 
+
+[vechain]
+icon = 
