@@ -2,6 +2,7 @@
 
 import configparser
 import sys
+from os import path
 from decimal import Decimal
 from pycoingecko import CoinGeckoAPI
 
@@ -9,8 +10,8 @@ cg = CoinGeckoAPI()
 config = configparser.ConfigParser()
 
 # File must be opened with utf-8 explicitly
-with open('~/.config/polybar/crypto-config', 'r', encoding='utf-8') as f:
-        config.read_file(f)
+with open(f'{path.dirname(__file__)}/crypto-config', 'r', encoding='utf-8') as f:
+    config.read_file(f)
 
 # Everything except the general section
 currencies = [x.lower() for x in config.sections() if x != 'general']
