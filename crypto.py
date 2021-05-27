@@ -20,9 +20,15 @@ params = {'convert': base_currency}
 
 
 for currency in currencies:
+    try:
+        coin_dict = cg.get_price(ids=f'{currency}', include_24hr_change='true',
+            vs_currencies=f'{base_currency}')
+    except:
+        # Print nothign if no connection
+        sys.stdout.write('')
+        sys.exit()
+
     icon = config[currency]['icon']
-    coin_dict = cg.get_price(ids=f'{currency}', include_24hr_change='true',
-        vs_currencies=f'{base_currency}')
     local_price = round(Decimal(coin_dict[f'{currency}'][f'{base_currency}']), 2)
     change_24 = round(Decimal(coin_dict[f'{currency}']['usd_24h_change']), 1)
 
