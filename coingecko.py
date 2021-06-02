@@ -39,9 +39,9 @@ for currency in currencies:
     change_24 = round(price_data[currency]['usd_24h_change'], 1)
 
     display_opt = config['general']['display']
-    if display_opt == 'both' or display_opt == None:
+    if display_opt == 'both':
         sys.stdout.write(f'{icon} {local_price}/{change_24:+}%  ')
     elif display_opt == 'percentage':
         sys.stdout.write(f'{icon} {change_24:+}%  ')
-    elif display_opt == 'price':
+    else:
         sys.stdout.write(f'{icon} {local_price}  ')
