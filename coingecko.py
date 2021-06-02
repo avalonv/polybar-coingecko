@@ -15,19 +15,21 @@ with open(f'{path.dirname(__file__)}/crypto-config', 'r', encoding='utf-8') as f
 # Everything except the general section
 currencies = [x.lower() for x in config.sections() if x != 'general']
 base_currency = config['general']['base_currency'].lower()
-params = {'convert': base_currency}
 
 
 for currency in currencies:
     try:
-        coin_dict = cg.get_price(ids=f'{currency}', include_24hr_change='true',
-            vs_currencies=f'{base_currency}')
+        price_data = cg.get_price(ids=currency, include_24hr_change='true',
+            vs_currencies=base_currency)
     except:
-        # Print nothign if no connection
+        # Print nothing if no connection
         sys.stdout.write('')
-        sys.exit()
+        sys.exit(2)
 
-    icon = config[currency]['icon']
+    try:
+        icon = config[currency]['icon']
+    except:
+        icon = cg.get_coin_by_id(currency)['symbol']
 
     try:
         digits = int(config[currency]['digits'])
