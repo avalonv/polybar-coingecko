@@ -3,7 +3,6 @@
 import configparser
 import sys
 from os import path
-from decimal import Decimal
 from pycoingecko import CoinGeckoAPI
 
 cg = CoinGeckoAPI()
@@ -29,8 +28,15 @@ for currency in currencies:
         sys.exit()
 
     icon = config[currency]['icon']
-    local_price = round(Decimal(coin_dict[f'{currency}'][f'{base_currency}']), 2)
-    change_24 = round(Decimal(coin_dict[f'{currency}']['usd_24h_change']), 1)
+
+    try:
+        digits = int(config[currency]['digits'])
+    except:
+        digits = int(config['general']['digits'])
+
+
+    local_price = format(price_data[currency][base_currency], f'.{digits}f')
+    change_24 = round(price_data[currency]['usd_24h_change'], 1)
 
     display_opt = config['general']['display']
     if display_opt == 'both' or display_opt == None:
